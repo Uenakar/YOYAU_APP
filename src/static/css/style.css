@@ -1,0 +1,12 @@
+body.morning {
+    background: linear-gradient(to right, #ADD8E6, #ffffff);
+}
+
+body.noon {
+    background: linear-gradient(to right, #f0f0f0, #ffffff);
+}
+
+body.night {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #011b50, #4e6e85);
+}

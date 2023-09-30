@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Summary Predict App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% if hour >= 6 and hour < 12 %}morning{% elif hour >= 12 and hour < 18 %}noon{% else %}night{% endif %}">
+    {% if hour >= 6 and hour < 12 %}
+        <p>おはようございます！</p>
+    {% elif hour >= 12 and hour < 18 %}
+        <p>こんにちは！</p>
+    {% else %}
+        <p>こんばんは！</p>
+    {% endif %}
+
+    <h1>文章要約</h1>
+    <form method="post">
+        <p><textarea name="text_input" rows="10" cols="50"></textarea>
+        <input type="submit" value="要約">
+        <input type="reset" value="クリア"></p>
+    </form>
+    <p></p>
+    <p></p>
+    <form method="post" action="/">
+        <label for="url_input">URL:</label>⚠
+        <input type="text" id="url_input" name="url_input" required>
+        <button type="submit">要約</button>
+        <button type="reset">クリア</button>
+    </form>
+    <p>⚠スクレイピングを行う前に対象ウェブサイトの利用規約を確認してください。</p>
+</body>
+</html>

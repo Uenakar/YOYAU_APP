@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>Summary Predict App</title>
+    <style>
+        .clickable {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .word {
+            display: none;
+        }
+    </style>
+    <script>
+        let showWakati = false;
+
+        function toggleWakati() {
+            const wordElements = document.getElementsByClassName('word');
+            const fullTextElements = document.getElementsByClassName('fulltext');
+            showWakati = !showWakati;
+            
+            console.log("showWakati: ", showWakati);
+
+            for (const el of wordElements) {
+                console.log("Word Element: ", el);
+                el.style.display = showWakati ? 'inline' : 'none';
+            }
+            
+            for (const el of fullTextElements) {
+                console.log("Full Text Element: ", el);
+                el.style.display = showWakati ? 'none' : 'inline';
+            }
+        }
+        
+        function redirectToWikipediaOrDictionary(word) {
+            window.open('https://ja.wikipedia.org/wiki/' + encodeURIComponent(word), '_blank');
+        }
+
+        function searchWikipedia() {
+            const searchTerm = document.getElementById('wikipediaSearchWord').value;
+            if (searchTerm) {
+                window.open('https://ja.wikipedia.org/wiki/' + encodeURIComponent(searchTerm), '_blank');
+                } else {
+                alert('単語を入力してください');
+                }
+        }
+        function clearSearchWord() {
+            document.getElementById('wikipediaSearchWord').value = '';  // テキストボックスの値を空に設定
+        }
+    </script>
+    </head>
+
+<body>
+    {% if summary %}
+        <p>要約文:</p>
+        <div id="summary" class="fulltext">{{ summary }}</div>
+        <div id="summaryContainer">
+            {% for word in wakati_summary %}
+                <span class="clickable word" onclick="redirectToWikipediaOrDictionary('{{ word }}')">{{ word }}</span>
+            {% endfor %}
+        </div>
+        
+        <p><button onclick="toggleWakati()">分かち書き / 分かち書き解除</button></p>
+        <input type="text" id="wikipediaSearchWord" placeholder="単語を入力">
+        <button onclick="searchWikipedia()">Wikipediaへ</button>
+        <button onclick="clearSearchWord()">クリア</button>
+
+        <p>元の文章:</p>
+        <div id="original" class="fulltext">{{ original_text }}</div>
+        <div id="originalTextContainer">
+            {% for word in wakati_original_text %}
+                <span class="clickable word" onclick="redirectToWikipediaOrDictionary('{{ word }}')">{{ word }}</span>
+            {% endfor %}
+        </div>
+
+
+        <p><a href="./">トップへ戻る</a></p>
+    {% else %}
+        <a href="./">トップへ戻る</a>
+    {% endif %}
+</body>
+
+</html>
