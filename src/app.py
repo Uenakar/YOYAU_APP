@@ -22,7 +22,7 @@ app = Flask(__name__,
 # 他の設定やルートの定義など
 
 #m = MeCab.Tagger("-d C:/anaconda3/Lib/site-packages/unidic/dicdir")
-m = MeCab.Tagger("-Owakati")
+m = MeCab.Tagger("-r \"C:\\Program Files\\MeCab\\etc\\mecabrc\" -Owakati")
 
 def predict(text):
     #model_path = "C:\\Users\\user\\Desktop\\yoyaku_app\\src\\model_weights.pth"
