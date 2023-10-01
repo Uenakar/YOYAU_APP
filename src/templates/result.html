@@ -16,23 +16,24 @@
     <script>
         let showWakati = false;
 
+        const originalTextElements = document.getElementsByClassName('fulltext')
+
         function toggleWakati() {
             const wordElements = document.getElementsByClassName('word');
             const fullTextElements = document.getElementsByClassName('fulltext');
             showWakati = !showWakati;
             
-            console.log("showWakati: ", showWakati);
 
             for (const el of wordElements) {
                 console.log("Word Element: ", el);
                 el.style.display = showWakati ? 'inline' : 'none';
             }
             
-            for (const el of fullTextElements) {
-                console.log("Full Text Element: ", el);
+            for (const el of originalTextElements) {
                 el.style.display = showWakati ? 'none' : 'inline';
             }
         }
+
         
         function redirectToWikipediaOrDictionary(word) {
             window.open('https://ja.wikipedia.org/wiki/' + encodeURIComponent(word), '_blank');
@@ -43,7 +44,7 @@
             if (searchTerm) {
                 window.open('https://ja.wikipedia.org/wiki/' + encodeURIComponent(searchTerm), '_blank');
                 } else {
-                alert('単語を入力してください');
+                    alert('単語を入力してください');
                 }
         }
         function clearSearchWord() {
