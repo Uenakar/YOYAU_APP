@@ -21,6 +21,7 @@ app = Flask(__name__,
 
 # 他の設定やルートの定義など
 
+#m = MeCab.Tagger("-d C:/anaconda3/Lib/site-packages/unidic/dicdir")
 m = MeCab.Tagger("-Owakati")
 
 def predict(text):
