@@ -15,3 +15,4 @@ MarkupSafe==2.1.2
 Werkzeug==2.2.3
 gdown==4.7.1
 unidic==1.1.0
+unidic-lite==1.0.8
