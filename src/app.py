@@ -16,7 +16,11 @@ app = Flask(__name__,
             template_folder=os.path.join(script_dir, 'templates'))
 
 # MeCabの設定
-m = MeCab.Tagger()
+mecabrc_file = os.getenv('MECABRC_FILE')
+if mecabrc_file:
+    mecab = MeCab.Tagger(f"--rcfile {mecabrc_file}")
+else:
+    mecab = MeCab.Tagger("")  # デフォルトの設定ファイルを使用
 
 # 他の設定やルートの定義など
 
