@@ -1,9 +1,9 @@
 beautifulsoup4==4.12.2
 Flask==2.2.2
-mecab_python3==1.0.7
+mecab_python3==1.0.8 #1.0.7
 requests==2.29.0
-torch==2.0.1
-transformers==4.33.1
+torch==2.0.0 #2.0.1
+transformers==4.33.2 #4.33.1
 pip==23.1.2
 gunicorn==21.2.0
 
