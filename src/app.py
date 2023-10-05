@@ -1,11 +1,13 @@
 import os
 from flask import Flask, render_template, request
 from yoyaku import YoyakuModel
-import MeCab
+#import MeCab
+from janome.tokenizer import Tokenizer
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
 import logging
+import pytz
 
 # スクリプトのあるディレクトリを取得
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,12 +17,8 @@ app = Flask(__name__,
             static_folder=os.path.join(script_dir, 'static'),
             template_folder=os.path.join(script_dir, 'templates'))
 
-# MeCabの設定
-mecabrc_file = os.getenv('MECABRC_FILE')
-if mecabrc_file:
-    mecab = MeCab.Tagger(f"--rcfile {mecabrc_file}")
-else:
-    mecab = MeCab.Tagger("")  # デフォルトの設定ファイルを使用
+# Janomeのインスタンスを作成
+tokenizer = Tokenizer()
 
 # 他の設定やルートの定義など
 
@@ -32,15 +30,14 @@ def predict(text):
     return summary
 
 def tokenize(text):
-    # MeCabを使用してテキストを分かち書き
-    node = m.parse(text)
-    words = []
-    for line in node.splitlines():
-        if line == "EOS":
-            break
-        word = line.split()[0]
-        words.append(word)
-    return words
+    # Janomeを使用してテキストを分かち書き
+    tokens = tokenizer.tokenize(text, wakati=True)
+    return list(tokens)
+
+def get_current_hour_jst():
+    jst = pytz.timezone('Asia/Tokyo')
+    current_time = datetime.now(jst)
+    return current_time.hour    
 
 def trim_text(text, max_length):
     if len(text) <= max_length:
@@ -51,7 +48,8 @@ def trim_text(text, max_length):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    hour = datetime.now().hour  # 現在の時間を取得
+    #hour = datetime.now().hour  # 現在の時間を取得
+    hour = get_current_hour_jst()  # JSTの現在の時間を取得
 
     if request.method == 'POST':
         text = request.form.get('text_input')
@@ -92,6 +90,7 @@ def index():
 
     return render_template('index.html', hour=hour)
 
+#pushするときこれに変更？
 if __name__ == '__main__':
-    extra_files_dir = os.path.join(script_dir, 'src')
-    app.run(debug=True, extra_files=[extra_files_dir])
+    # extra_files_dir = os.path.join(script_dir, 'src')
+    app.run(debug=False)  # debugをFalseに設定
