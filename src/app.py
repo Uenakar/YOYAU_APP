@@ -8,6 +8,7 @@ import requests
 from datetime import datetime
 import logging
 import pytz
+import time
 
 # スクリプトのあるディレクトリを取得
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -63,6 +64,7 @@ def index():
             return render_template('result.html', original_text=text, summary=summary, 
                                    wakati_original_text=wakati_original_text, wakati_summary=wakati_summary)
         elif url:
+            time.sleep(2)  # 2秒待機        
             try:
                 headers = {
                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
