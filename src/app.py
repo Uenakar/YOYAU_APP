@@ -21,6 +21,9 @@ app = Flask(__name__,
 # Janomeのインスタンスを作成
 tokenizer = Tokenizer()
 
+# 環境変数からUSER_AGENTを取得、またはデフォルトを設定
+USER_AGENT = os.environ.get('USER_AGENT', "Default User Agent")
+
 # 他の設定やルートの定義など
 
 def predict(text):
@@ -66,9 +69,14 @@ def index():
         elif url:
             time.sleep(2)  # 2秒待機        
             try:
+                #headers = {
+                    #"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                #}
+
                 headers = {
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
-                }
+                    "User-Agent": USER_AGENT
+                }        
+                        
                 response = requests.get(url, headers=headers)
                 response.raise_for_status()  
             except requests.exceptions.HTTPError as e:
