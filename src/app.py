@@ -100,7 +100,5 @@ def index():
 
     return render_template('index.html', hour=hour)
 
-#pushするときこれに変更？
-if __name__ == '__main__':
-    # extra_files_dir = os.path.join(script_dir, 'src')
-    app.run(debug=False)  # debugをFalseに設定
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
