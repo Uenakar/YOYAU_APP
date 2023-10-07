@@ -18,5 +18,5 @@ gdown==4.7.1
 #unidic==1.1.0
 #unidic-lite==1.0.8
 Janome==0.5.0
-sentencepiece==0.1.96  # このバージョンは例です。最新のバージョンを使用してください。
+sentencepiece==0.1.99
 pytz==2023.3
