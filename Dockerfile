@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 ENV USER_AGENT="Your User Agent String"
 
 # コンテナ起動時に実行するコマンドを指定
-CMD ["python", "app.py"]
+CMD ["python", "src/app.py"]
