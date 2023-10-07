@@ -9,6 +9,7 @@ COPY . .
 
 # 依存関係をインストール
 RUN pip install -r requirements.txt
+RUN pip install protobuf
 
 # 環境変数を設定 (必要に応じて)
 ENV USER_AGENT="Your User Agent String"
