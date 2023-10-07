@@ -1,10 +1,17 @@
-## モデルの重み
-モデルの重みは、以下のリンクからダウンロードできます。
-[Download Model Weights](https://drive.google.com/uc?id=18Kh3mCkNeUVG1Y1mcjobcq6FHqMwcL_e)
+# ベースイメージを指定
+FROM python:3.11.3
 
-## セットアップ手順
+# ワーキングディレクトリを設定
+WORKDIR /app
 
-### プロジェクトのクローン
-```bash
-git clone https://github.com/username/yoyaku_app.git
-cd yoyaku_app
+# 必要なファイルをコピー
+COPY . .
+
+# 依存関係をインストール
+RUN pip install -r requirements.txt
+
+# 環境変数を設定 (必要に応じて)
+ENV USER_AGENT="Your User Agent String"
+
+# コンテナ起動時に実行するコマンドを指定
+CMD ["python", "app.py"]
