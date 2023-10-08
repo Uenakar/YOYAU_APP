@@ -20,11 +20,11 @@ class YoyakuModel:
         config = T5Config.from_pretrained('sonoisa/t5-base-japanese')
         self.model = T5ForConditionalGeneration(config)
         
-         #ファイルが存在しない場合、gdownを使用してダウンロード
-        if not os.path.exists(model_weights_path):
-            import gdown
-            url = 'https://drive.google.com/uc?id=18Kh3mCkNeUVG1Y1mcjobcq6FHqMwcL_e'
-            gdown.download(url, model_weights_path, quiet=False)
+         #ファイルが存在しない場合、gdownを使用してダウンロード DockerfileにモデルをDLするコマンドを追加する為不要
+        #if not os.path.exists(model_weights_path):
+            #import gdown
+            #url = 'https://drive.google.com/uc?id=18Kh3mCkNeUVG1Y1mcjobcq6FHqMwcL_e'
+            #gdown.download(url, model_weights_path, quiet=False)
         # 重みをロード
         state_dict = torch.load(model_weights_path)
         self.model.load_state_dict(state_dict)
